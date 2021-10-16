@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách sinh viên</h1>
+<form th:action="@{/search}">
+    <div>
+        <label>Mã SV:</label>
+        <input type="text" th:value="${masv}" name="masv" id="masv">
+        <input type="submit" value="Tìm Sinh viên"/>
+    </div>
+
+</form>
+<br>
+<form th:action="@{/findFM}">
+    <div>
+        <label>Mã Lớp:</label>
+        <input type="text" th:value="${maLop}" name="maLop" id="maLop">
+        <input type="submit" value="Tìm Sinh viên Nữ"/>
+    </div>
+
+</form>
+<br>
+<a th:href="@{/add}">Thêm Sinh Viên</a>
+<br>
+<br>
+<table border="1px">
+    <tr>
+        <th>Mã Sv</th>
+        <th>Họ Đệm</th>
+        <th>Tên</th>
+        <th>Giới tính</th>
+        <th>Ngày sinh</th>
+        <th>Tỉnh</th>
+        <th>Mã Lớp</th>
+        <th></th>
+    </tr>
+    <tr th:each=" sv : ${listSinhvien}">
+        <td th:text="${sv.masv}"></td>
+        <td th:text="${sv.hoDem}"></td>
+        <td th:text="${sv.ten}"></td>
+        <td th:text="${sv.gioiTinh}"></td>
+        <td th:text="${sv.ngaySinh}"></td>
+        <td th:text="${sv.tinh}"></td>
+        <td th:text="${sv.maLop}"></td>
+        <td> <a th:href="@{/edit?masv={masv}(masv=${sv.masv})}">Sửa</a>
+             <a th:href="@{/delete?masv={masv}(masv=${sv.masv})}">Xoá</a>
+        </td>
+
+    </tr>
+
+</table>
+</body>
+</html>

@@ -1,5 +1,9 @@
-package com.example.restapi.model;
+package com.example.restapi.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SinhvienDTO {
@@ -8,7 +12,10 @@ public class SinhvienDTO {
     private String hoDem;
     private String ten;
     private String gioiTinh;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
+
     private String tinh;
     private String maLop;
 
@@ -51,6 +58,9 @@ public class SinhvienDTO {
     public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+    public void setNgaySinh(String ngaySinhs) throws ParseException {
+        this.ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(ngaySinhs);
+    }
 
     public String getTen() {
         return this.ten;
@@ -66,5 +76,18 @@ public class SinhvienDTO {
 
     public void setTinh(String tinh) {
         this.tinh = tinh;
+    }
+
+    @Override
+    public String toString() {
+        return "SinhvienDTO{" +
+                "masv='" + masv + '\'' +
+                ", hoDem='" + hoDem + '\'' +
+                ", ten='" + ten + '\'' +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", tinh='" + tinh + '\'' +
+                ", maLop='" + maLop + '\'' +
+                '}';
     }
 }

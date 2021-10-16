@@ -1,6 +1,9 @@
-package com.example.restapi.controller;
+package com.example.restapi.Controller;
 
-import com.example.restapi.model.SinhvienDTO;
+import com.example.restapi.Model.SinhvienDTO;
+import com.example.restapi.Service.SinhvienService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,8 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 
 @RestController
-public class StudentController {
+public class SinhvienController {
     private List<SinhvienDTO> students = new ArrayList<>();
+
 
     @GetMapping("/dssv")
     public List<SinhvienDTO> getAllStudent(){
