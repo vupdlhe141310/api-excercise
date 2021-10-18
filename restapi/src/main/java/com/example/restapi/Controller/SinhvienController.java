@@ -12,17 +12,20 @@ import java.util.List;
 
 @RestController
 public class SinhvienController {
-    private List<SinhvienDTO> students = new ArrayList<>();
 
+    @Autowired
+    private SinhvienService sinhvienService;
 
     @GetMapping("/dssv")
     public List<SinhvienDTO> getAllStudent(){
+        private List<SinhvienDTO> students = sinhvienService.getAllSinhvien();
         students.sort((Comparator.comparing(sv -> ((SinhvienDTO)sv).getTen())));
         return students;
     }
 
     @GetMapping("/getsv")
     public SinhvienDTO getStudentByMasv(@RequestParam("masv") String masv){
+        private List<SinhvienDTO> students = sinhvienService.getAllSinhvien();
         for (int i = 0; i < students.size(); i++) {
             if(students.get(i).getMasv().equalsIgnoreCase(masv)){
                 return students.get(i);
@@ -32,44 +35,30 @@ public class SinhvienController {
     }
     @PostMapping("/sv")
     public SinhvienDTO addStudent(@RequestBody SinhvienDTO sv){
-        students.add(sv);
+        sinhvienService.addSinhvien(sv);
         return sv;
     }
 
     @DeleteMapping("/sv")
     public SinhvienDTO deleteStudent(@RequestParam("masv") String masv){
         SinhvienDTO svDel = new SinhvienDTO();
-        for (int i = 0; i < students.size(); i++) {
-            if(students.get(i).getMasv().equalsIgnoreCase(masv)){
-                svDel = students.get(i);
-                students.remove(i);
-            }
-        }
+        sinhvienService.deleteSinhvien(masv);
         return  svDel;
     }
 
     @PutMapping("sv")
     public SinhvienDTO updateStudent(@RequestBody SinhvienDTO sv){
         SinhvienDTO svUd = new SinhvienDTO();
-        for (int i = 0; i < students.size(); i++) {
-            if(students.get(i).getMasv().equalsIgnoreCase(sv.getMasv())){
-                svUd = students.get(i);
-                students.set(i,sv);
-            }
-        }
+        sinhvienService.updateSinhvien(sv);
         return svUd;
     }
 
     @GetMapping("/getsvnu")
     public List<SinhvienDTO> getSvNuByLop(@RequestParam("maLop") String maLop){
+        private List<SinhvienDTO> students = sinhvienService.getAllSinhvien();
         students.sort((Comparator.comparing(sv -> ((SinhvienDTO)sv).getHoDem()).thenComparing(sv -> ((SinhvienDTO)sv).getTen())));
-        List<SinhvienDTO> listSvNu = new ArrayList<>();
-        for (int i = 0; i < students.size(); i++) {
-            if(students.get(i).getMaLop().equalsIgnoreCase(maLop) && students.get(i).getGioiTinh().equalsIgnoreCase("nu")){
-                listSvNu.add(students.get(i));
-            }
-        }
-        return listSvNu;
+
+        return students;
     }
 
 }
